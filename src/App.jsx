@@ -252,11 +252,9 @@ function App() {
           animate={{ opacity: 1, y: 0 }}
           className="transport-badges"
         >
-          {((result?.isIsland) || 
-            (result?.sigungu === "거제시") || 
-            (result?.sigungu === "남해군") || 
-            (result?.sigungu === "울릉군") || 
-            (["욕지면", "한산면", "사량면", "화정면", "남면", "삼산면", "동서동"].includes(result?.name))) && (
+          {(result?.isIsland || 
+            ["거제시", "남해군", "울릉군", "옹진군", "신안군", "완도군", "진도군"].includes(result?.sigungu) || 
+            (["욕지면", "한산면", "사량면", "화정면", "동서동"].includes(result?.name) && ["통영시", "여수시", "사천시"].includes(result?.sigungu))) && (
             <div className="island-badge" style={{ marginBottom: 0 }}>
               🏝️ 섬 여행지
             </div>
