@@ -114,8 +114,8 @@ function App() {
       const coreSidos = ["울산광역시", "부산광역시", "대구광역시", "경상북도", "경상남도", "대전광역시", "세종특별자치시"];
       const nearbySigungus = [
         "광양시", "구례군", "남원시", "무주군", "장수군", // Jeolla Eastern
-        "청주시", "보은군", "옥천군", "영동군", // Chungbuk Southern
-        "삼척시", "동해시", "강릉시", // Gangwon Southern/Coastal
+        "청주시", "보은군", "옥천군", "영동군", "충주시", "제천시", "단양군", // Chungbuk
+        "삼척시", "동해시", "강릉시", "원주시", // Gangwon Southern/Coastal
         "제주시", "서귀포시" // Jeju (Air)
       ];
 
