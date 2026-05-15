@@ -13,7 +13,6 @@ const DIRECT_PT_LIST = [
   "서울특별시", "부산광역시", "대구광역시", "대전광역시", "광주광역시", "세종특별자치시",
   "울산광역시", "경상남도", "경상북도",
   "전주시", "군산시", "익산시",
-  "순천시", "여수시", "목포시", "광양시",
   "청주시", "충주시", "제천시", "천안시", "아산시",
   "원주시", "춘천시", "강릉시", "동해시", "삼척시", "속초시",
   "수원시", "성남시", "의정부시", "안양시", "부천시", "광명시", "평택시", "안산시", "고양시", "용인시", "이천시", "안성시", "화성시", "오산시"
@@ -105,17 +104,24 @@ function App() {
     if (selectedSido === "전국 (섬 포함)") return districtsData;
     if (selectedSido === "🏝️ 섬 여행") return districtsData.filter(d => d.isIsland);
     if (selectedSido === "🚌🚗 울산 출발 2.5~3시간 이내 (섬 포함)") {
-      // Within 2.5-3 hours from Ulsan by car/bus, excluding Seoul/Gyeonggi/Incheon
-      const nearbySidos = [
-        "울산광역시", "부산광역시", "대구광역시", "대전광역시", "세종특별자치시", 
-        "경상북도", "경상남도", "전라북도", "전라남도", "충청북도", "제주특별자치도"
+      // Precise 2.5-3 hour radius from Ulsan
+      // 1. Gyeongsang region (All)
+      // 2. Daejeon, Sejong (Core)
+      // 3. Eastern Jeolla (Gwangyang, Gurye, Namwon, Muju, Jangsu)
+      // 4. Southern Chungbuk (Cheongju, Bo-eun, Okcheon, Yeongdong)
+      // 5. Southern Gangwon (Samcheok, Donghae)
+      
+      const coreSidos = ["울산광역시", "부산광역시", "대구광역시", "경상북도", "경상남도", "대전광역시", "세종특별자치시"];
+      const nearbySigungus = [
+        "광양시", "구례군", "남원시", "무주군", "장수군", // Jeolla Eastern
+        "청주시", "보은군", "옥천군", "영동군", // Chungbuk Southern
+        "삼척시", "동해시", "강릉시", // Gangwon Southern/Coastal
+        "제주시", "서귀포시" // Jeju (Air)
       ];
-      const nearbySigunguPrefixes = [
-        "천안시", "아산시", "동해시", "삼척시", "강릉시"
-      ];
+
       return districtsData.filter(d => 
-        nearbySidos.includes(d.sido) || 
-        nearbySigunguPrefixes.some(prefix => d.sigungu.startsWith(prefix))
+        coreSidos.includes(d.sido) || 
+        nearbySigungus.some(city => d.sigungu.startsWith(city))
       );
     }
     return districtsData.filter(d => d.sido === selectedSido);
